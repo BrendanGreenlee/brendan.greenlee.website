@@ -23,3 +23,29 @@ jobs:
           path: '.'
       - id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify public deployment
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -euo pipefail
+          expected='Chicago-based project manager'
+          stale='Chicago-based project manager &amp; organizer'
+          verified=0
+          for attempt in $(seq 1 18); do
+            echo "Deployment verification attempt ${attempt}/18: ${PAGE_URL}"
+            body=$(curl --fail --silent --show-error --location --max-time 20 \
+              --header 'Cache-Control: no-cache' \
+              "${PAGE_URL}?deploy_check=${GITHUB_SHA}-${attempt}" || true)
+            if grep -Fq "$expected" <<<"$body" && ! grep -Fq "$stale" <<<"$body"; then
+              echo "Deployment verified successfully."
+              verified=1
+              break
+            fi
+            if [ "$attempt" -lt 18 ]; then
+              sleep 10
+            fi
+          done
+          if [ "$verified" -ne 1 ]; then
+            echo 'Deployment verification failed: the expected content was not served after 18 attempts.' >&2
+            exit 1
+          fi
