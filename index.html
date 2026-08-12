@@ -6,20 +6,33 @@
 <title>Brendan Greenlee</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { min-height: 100%; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #0f0f0f; color: #e0e0e0;
+    background-color: #0f0f0f;
+    background-image: url('assets/chicago-twilight.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #e0e0e0;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     min-height: 100vh; padding: 2rem;
   }
-  .container { max-width: 640px; text-align: center; }
-  h1 { font-size: 2.5rem; font-weight: 600; margin-bottom: 0.5rem; color: #fff; }
-  p { font-size: 1.1rem; line-height: 1.6; color: #a0a0a0; margin-bottom: 1rem; }
-  .divider { width: 60px; height: 2px; background: #333; margin: 1.5rem auto; }
+  body::before {
+    content: '';
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 0;
+  }
+  .container { max-width: 640px; text-align: center; position: relative; z-index: 1; }
+  h1 { font-size: 2.5rem; font-weight: 600; margin-bottom: 0.5rem; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
+  p { font-size: 1.1rem; line-height: 1.6; color: #ececec; margin-bottom: 1rem; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+  .divider { width: 60px; height: 2px; background: rgba(255,255,255,0.45); margin: 1.5rem auto; }
   .links { margin-top: 1.5rem; }
-  .links a { color: #6ea8fe; text-decoration: none; font-size: 0.95rem; margin: 0 0.75rem; }
+  .links a { color: #9ec5ff; text-decoration: none; font-size: 0.95rem; margin: 0 0.75rem; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
   .links a:hover { text-decoration: underline; }
-  .tag { font-size: 0.85rem; color: #666; margin-top: 2rem; }
+  .tag { font-size: 0.85rem; color: #d8d8d8; margin-top: 2rem; }
 </style>
 </head>
 <body>
